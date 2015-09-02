@@ -15,3 +15,5 @@ icinga2:
       - foo
       - bar
 </pre>
+
+Generate password with `openssl passwd -1 'password'`
