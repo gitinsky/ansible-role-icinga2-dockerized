@@ -17,6 +17,21 @@
 - name: put createdb.sh
   template: src=createdb.sh dest=/root/icinga2-dockerized/createdb.sh mode=0755
 
+- name: create icingaweb2 folder structure
+  file: state=directory name=/root/icinga2-dockerized/icingaweb2/modules/monitoring
+
+- name: put icingaweb2 configs
+  template: src={{ item.src }} dest={{ item.dest }}
+  with_items:
+    - { src: icingaweb2/authentication.ini, dest: /root/icinga2-dockerized/icingaweb2/authentication.ini }
+    - { src: icingaweb2/config.ini, dest: /root/icinga2-dockerized/icingaweb2/config.ini }
+    - { src: icingaweb2/resources.ini, dest: /root/icinga2-dockerized/icingaweb2/resources.ini }
+    - { src: icingaweb2/roles.ini, dest: /root/icinga2-dockerized/icingaweb2/roles.ini }
+    - { src: icingaweb2/modules/monitoring/backends.ini, dest: /root/icinga2-dockerized/icingaweb2/modules/monitoring/backends.ini }
+    - { src: icingaweb2/modules/monitoring/config.ini, dest: /root/icinga2-dockerized/icingaweb2/modules/monitoring/config.ini }
+    - { src: icingaweb2/modules/monitoring/instances.ini, dest: /root/icinga2-dockerized/icingaweb2/modules/monitoring/instances.ini }
+
+
 - name: build a Docker image for icinga2
   docker_image: path="/root/icinga2-dockerized" name="gitinsky/icinga2" tag="0.0.1" state="build"
 

@@ -15,10 +15,10 @@ ADD icinga2-ido-mysql.conf /etc/dbconfig-common/icinga2-ido-mysql.conf
 ADD ido-mysql.conf /etc/icinga2/features-enabled/ido-mysql.conf
 ADD icinga2.rb /etc/eye/icinga2.rb
 ADD createdb.sh /root/createdb.sh
+ADD icingaweb2 /etc/icingaweb2/
 RUN mkdir -p /run/icinga2/cmd && \
-    chown -R nagios:nagios /run/icinga2/cmd && \
+    chown -R nagios:nagios /run/icinga2 && \
     icinga2 feature enable ido-mysql && \
     icinga2 feature enable command && \
-    icingacli setup config directory --group icingaweb2 && \
-    icingacli setup token create
+    icingacli setup config directory --group icingaweb2
 EXPOSE 80
