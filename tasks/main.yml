@@ -11,8 +11,13 @@
     - { src: icinga2-ido-mysql.conf, dest: /root/icinga2-dockerized/icinga2-ido-mysql.conf }
     - { src: ido-mysql.conf, dest: /root/icinga2-dockerized/ido-mysql.conf }
 
+- name: put icinga2.rb
+  template: src=icinga2.rb dest=/root/icinga2-dockerized/icinga2.rb
+
+- name: put createdb.sh
+  template: src=createdb.sh dest=/root/icinga2-dockerized/createdb.sh mode=0755
+
 - name: build a Docker image for icinga2
-  # command: docker build -t gitinsky/icinga2:0.0.1 --rm /root/icinga2-dockerized
   docker_image: path="/root/icinga2-dockerized" name="gitinsky/icinga2" tag="0.0.1" state="build"
 
 - name: tag it as latest

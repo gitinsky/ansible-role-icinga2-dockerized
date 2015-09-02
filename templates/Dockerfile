@@ -13,7 +13,11 @@ RUN wget --quiet -O - http://packages.icinga.org/icinga.key | apt-key add - && \
 RUN echo 'date.timezone = "Europe/Moscow"' >> /etc/php5/apache2/php.ini
 ADD icinga2-ido-mysql.conf /etc/dbconfig-common/icinga2-ido-mysql.conf
 ADD ido-mysql.conf /etc/icinga2/features-enabled/ido-mysql.conf
-RUN icinga2 feature enable ido-mysql && \
+ADD icinga2.rb /etc/eye/icinga2.rb
+ADD createdb.sh /root/createdb.sh
+RUN mkdir -p /run/icinga2/cmd && \
+    chown -R nagios:nagios /run/icinga2/cmd && \
+    icinga2 feature enable ido-mysql && \
     icinga2 feature enable command && \
     icingacli setup config directory --group icingaweb2 && \
     icingacli setup token create
