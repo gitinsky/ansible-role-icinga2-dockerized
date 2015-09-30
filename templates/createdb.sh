@@ -1,3 +1,7 @@
+chown nagios /var/cache/icinga2
+chown nagios /var/log/icinga2
+mkdir /run/icinga2/cmd
+chown -R nagios /run/icinga2
 mysqlshow -u {{ icinga2.ido.user }} -h {{ icinga2.ido.dbserver }} -p{{ icinga2.ido.pass }} {{ icinga2.ido.dbname }} | grep icinga_acknowledgements
 if [ $? != 0 ]; then
   date
