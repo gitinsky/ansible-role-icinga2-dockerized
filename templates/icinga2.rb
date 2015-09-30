@@ -10,7 +10,7 @@ Eye.application 'icinga2' do
     start_command 'icinga2 daemon'
 
     daemonize true
-    start_timeout 10.seconds
+    start_timeout 80.seconds
     stop_timeout 5.seconds
   end
 end
