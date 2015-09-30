@@ -1,4 +1,4 @@
-FROM gitinsky/apache2-php5:0.1.3
+FROM gitinsky/apache2-php5:0.1.4
 MAINTAINER Git In Sky <support@gitinsky.com>
 ENV DEBIAN_FRONTEND noninteractive
 
