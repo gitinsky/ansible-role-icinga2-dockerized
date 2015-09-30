@@ -31,6 +31,11 @@
     - { src: icingaweb2/modules/monitoring/config.ini, dest: /root/icinga2-dockerized/icingaweb2/modules/monitoring/config.ini }
     - { src: icingaweb2/modules/monitoring/instances.ini, dest: /root/icinga2-dockerized/icingaweb2/modules/monitoring/instances.ini }
 
+- name: install python-pip
+  apt: name=python-pip state=present
+
+- name: install docker-py
+  pip: name=docker-py
 
 - name: build a Docker image for icinga2
   docker_image: path="/root/icinga2-dockerized" name="gitinsky/icinga2" tag="0.0.1" state="build"
