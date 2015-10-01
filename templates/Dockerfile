@@ -23,6 +23,7 @@ ADD ido-mysql.conf /etc/icinga2/features-enabled/ido-mysql.conf
 ADD icinga2.rb /etc/eye/icinga2.rb
 ADD createdb.sh /root/createdb.sh
 ADD php.ini /etc/php5/apache2/php.ini
+ADD hosts.conf /etc/icinga2/conf.d/hosts.conf
 ADD icingaweb2 /etc/icingaweb2/
 RUN mkdir -p /run/icinga2/cmd && \
     chown -R nagios:nagios /run/icinga2 && \
