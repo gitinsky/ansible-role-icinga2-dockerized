@@ -5,6 +5,9 @@
 - name: put Dockerfile
   template: src=Dockerfile dest=/root/icinga2-dockerized/Dockerfile
 
+- name: put php.ini
+  copy: src=php.ini dest=/root/icinga2-dockerized/php.ini
+
 - name: put ido configs
   template: src={{ item.src }} dest={{ item.dest }}
   with_items:
