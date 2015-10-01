@@ -10,7 +10,8 @@ RUN apt-get update && \
     apt-get -y install php5-cli php5-common php5-cgi php5-curl php5-imagick php5-imap php5-pgsql php5-sqlite php5-mysql php5-fpm php5-mcrypt php5-ldap php5-json php5-intl php5-gd && \
     apt-get -y install icinga2 icinga2-ido-mysql nagios-plugins icingaweb2 && \
     apt-get -y install nagios-nrpe-plugin --no-install-recommends && \
-    echo 'date.timezone = "Europe/Moscow"' >> /etc/php5/apache2/php.ini
+    echo 'date.timezone = "Europe/Moscow"' >> /etc/php5/apache2/php.ini && \
+    usermod -a -G nagios www-data
 ADD icinga2-ido-mysql.conf /etc/dbconfig-common/icinga2-ido-mysql.conf
 ADD ido-mysql.conf /etc/icinga2/features-enabled/ido-mysql.conf
 ADD icinga2.rb /etc/eye/icinga2.rb
