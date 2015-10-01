@@ -11,11 +11,17 @@ RUN apt-get update && \
     apt-get -y install icinga2 icinga2-ido-mysql nagios-plugins icingaweb2 && \
     apt-get -y install nagios-nrpe-plugin --no-install-recommends && \
     echo 'date.timezone = "Europe/Moscow"' >> /etc/php5/apache2/php.ini && \
-    usermod -a -G nagios www-data
+    usermod -a -G nagios www-data && \
+    mkdir /var/lib/php5-sessions && \
+    mkdir /etc/icingaweb2/enabledModules && \
+    chown www-data:icingaweb2 /etc/icingaweb2/enabledModules && \
+    chmod 2750 /etc/icingaweb2/enabledModules && \
+    ln -s /usr/share/icingaweb2/modules/monitoring /etc/icingaweb2/enabledModules/monitoring
 ADD icinga2-ido-mysql.conf /etc/dbconfig-common/icinga2-ido-mysql.conf
 ADD ido-mysql.conf /etc/icinga2/features-enabled/ido-mysql.conf
 ADD icinga2.rb /etc/eye/icinga2.rb
 ADD createdb.sh /root/createdb.sh
+ADD php.ini /etc/php5/apache2/php.ini
 ADD icingaweb2 /etc/icingaweb2/
 RUN mkdir -p /run/icinga2/cmd && \
     chown -R nagios:nagios /run/icinga2 && \
