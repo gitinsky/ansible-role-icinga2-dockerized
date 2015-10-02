@@ -11,6 +11,9 @@
 - name: put hosts.conf
   copy: src=hosts.conf dest=/root/icinga2-dockerized/hosts.conf
 
+- name: put influx_command.conf
+  copy: src=influx_command.conf dest=/root/icinga2-dockerized/influx_command.conf
+
 - name: put ido configs
   template: src={{ item.src }} dest={{ item.dest }}
   with_items:

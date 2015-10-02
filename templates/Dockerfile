@@ -8,7 +8,7 @@ RUN apt-get update && \
     echo "deb http://packages.icinga.org/ubuntu icinga-trusty main" >> /etc/apt/sources.list && \
     echo "deb http://archive.ubuntu.com/ubuntu/ trusty-backports main restricted universe" >> /etc/apt/sources.list && \
     apt-get update -y && \
-    apt-get -y install php5-cli php5-common php5-cgi php5-curl php5-imagick php5-imap php5-pgsql php5-sqlite php5-mysql php5-fpm php5-mcrypt php5-ldap php5-json php5-intl php5-gd && \
+    apt-get -y install php5-cli php5-common php5-cgi php5-curl php5-imagick php5-imap php5-pgsql php5-sqlite php5-mysql php5-fpm php5-mcrypt php5-ldap php5-json php5-intl php5-gd python-pip && \
     apt-get -y install icinga2 icinga2-ido-mysql nagios-plugins icingaweb2 icinga2-classicui && \
     apt-get -y install nagios-nrpe-plugin --no-install-recommends && \
     echo 'date.timezone = "Europe/Moscow"' >> /etc/php5/apache2/php.ini && \
@@ -17,9 +17,11 @@ RUN apt-get update && \
     mkdir /etc/icingaweb2/enabledModules && \
     chown www-data:icingaweb2 /etc/icingaweb2/enabledModules && \
     chmod 2750 /etc/icingaweb2/enabledModules && \
-    ln -s /usr/share/icingaweb2/modules/monitoring /etc/icingaweb2/enabledModules/monitoring
+    ln -s /usr/share/icingaweb2/modules/monitoring /etc/icingaweb2/enabledModules/monitoring && \
+    pip install influx-nagios-plugin
 ADD icinga2-ido-mysql.conf /etc/dbconfig-common/icinga2-ido-mysql.conf
 ADD ido-mysql.conf /etc/icinga2/features-enabled/ido-mysql.conf
+ADD influx_command.conf /etc/icinga2/conf.d/influx_command.conf
 ADD icinga2.rb /etc/eye/icinga2.rb
 ADD createdb.sh /root/createdb.sh
 ADD php.ini /etc/php5/apache2/php.ini
